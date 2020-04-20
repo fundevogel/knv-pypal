@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='knv_paypal_matcher',
-    version='0.1',
+    version='0.2',
     description='Matches KNV online shop invoices with payments received via PayPal™',
     url='http://github.com/Fundevogel/knv-paypal-matcher',
     author='Martin Folkers',

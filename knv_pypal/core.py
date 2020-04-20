@@ -8,7 +8,7 @@ from operator import itemgetter
 
 # CORE #
 
-def match_payments(payment_data, order_data, info_data):
+def match_data(payment_data, order_data, info_data):
     # Processing data for ..
     # (1) .. payments
     # (2) .. orders
@@ -24,6 +24,11 @@ def match_payments(payment_data, order_data, info_data):
         # (1) Find matching order for current payment
         # (2) Find matching invoice number for this order
         matching_order = match_orders(payment, orders)
+
+        if not matching_order:
+            results.append(payment)
+            continue
+
         matching_infos = match_infos(matching_order, infos)
 
         # Skip if no matching invoice numbers
@@ -90,7 +95,7 @@ def process_payments(data):
 
     payments.sort(key=lambda payment: datetime.strptime(payment['Datum'], '%d.%m.%Y'))
 
-    return payments
+    return dedupe(payments)
 
 
 def process_orders(order_data):
@@ -115,7 +120,7 @@ def process_orders(order_data):
 
         orders.append(order)
 
-    return orders
+    return dedupe(orders)
 
 
 def process_infos(info_data):
@@ -155,7 +160,10 @@ def match_orders(payment, orders):
 
     matches = sorted(candidates, key=itemgetter(0), reverse=True)
 
-    return matches[0][1]
+    if matches:
+        return matches[0][1]
+
+    return {}
 
 
 def match_infos(order, infos):
