@@ -11,6 +11,6 @@ setup(
     author_email='hello@twobrain.io',
     maintainer='Fundevogel',
     license='MIT',
-    packages=['lib'],
+    packages=['knv_pypal'],
     zip_safe=False
 )
