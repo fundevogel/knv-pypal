@@ -153,9 +153,25 @@ def match_orders(payment, orders):
         dates_match = match_dates(payment['Datum'], item['Datum']) == True
 
         if costs_match and dates_match:
+            # Let them fight ..
             hits = 0
 
-            # TODO: Levenshtein
+            # Determine chance of match for given payment & order
+            # (1) Split by whitespace
+            payment_name = payment['Name'].split(' ')
+            order_name = item['Name'].split(' ')
+            # (2) Take first list item as first name, last list item as last name
+            payment_first, payment_last = payment_name[0], payment_name[-1]
+            order_first, order_last = order_name[0], order_name[-1]
+
+            # Add one point for matching first name, since that's more likely, but ..
+            if payment_first.lower() == order_first.lower():
+                hits += 1
+
+            # .. may be overridden by matching last name
+            if payment_last.lower() == order_last.lower():
+                hits += 2
+
             candidates.append((hits, item))
 
     matches = sorted(candidates, key=itemgetter(0), reverse=True)
