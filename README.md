@@ -12,6 +12,6 @@ df = pd.read_csv(csv_file)
 data = df.to_dict('records')
 ```
 
-Next, pass the data loaded from `Download.CSV` [PayPal™] as well as `Orders_*.csv` and `OrderInfo_*.csv` [KNV] to the `match_data` function .. that's it!
+Next, pass the data loaded from `Download.CSV` [PayPal™](https://www.paypal.com/de/home) as well as `Orders_*.csv` and `OrderInfo_*.csv` [KNV](https://shopkonfigurator.buchkatalog-reloaded.de) to the `match_data` function .. that's it!
 
 :copyright: Fundevogel Kinder- und Jugendbuchhandlung
